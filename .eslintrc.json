@@ -10,5 +10,8 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": {
+    "dot-notation": "off",
+    "camelcase": "off"
+  }
 }
