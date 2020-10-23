@@ -8,6 +8,7 @@ export const AUTH = 'AUTH'
 
 const mapResultAction = async (result: boolean, ctx: BotContext) => {
   if (result) {
+    ctx.session.entities = {}
     return backToMenu(ctx)
   } else {
     await ctx.reply('Неизвестная ошибка')

@@ -14,6 +14,11 @@ export const telegram = bot.telegram
 
 const start = Telegraf.optional<BotContext>(ctx => !ctx.session.api, async (ctx) => await moveToScene(AUTH)(ctx, '/'))
 const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.api, async (ctx) => {
+  try {
+    await ctx.deleteMessage(ctx.session.menuMessageId)
+  } catch (e) {
+    console.log(e)
+  }
   ctx.session = {}
   await ctx.reply('Пока')
 })

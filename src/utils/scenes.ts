@@ -11,5 +11,6 @@ export const moveToScene = (sceneId: string, action: string = '') => {
 
 export const backToMenu = async (ctx: BotContext) => {
   await ctx.scene.leave()
-  return menuMiddleware.replyToContext(ctx, ctx.session.path)
+  const menu = await menuMiddleware.replyToContext(ctx, ctx.session.path)
+  ctx.session.menuMessageId = menu?.message_id
 }

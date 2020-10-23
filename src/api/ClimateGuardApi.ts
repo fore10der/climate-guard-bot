@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { TokenResponse } from './interfaces/token'
+import { Building } from '../interfaces'
 
 export class ClimateGuardApi {
     private instance: AxiosInstance
@@ -19,6 +20,11 @@ export class ClimateGuardApi {
       } else {
         return false
       }
+    }
+
+    async getBuildings () {
+      const response = await this.instance.get<Building[]>('/api/telegramBot/getBuildings')
+      return response.data
     }
 
     constructor () {
