@@ -1,7 +1,7 @@
 import { Context } from 'telegraf'
 import { SceneContextMessageUpdate } from 'telegraf/typings/stage'
 import { ClimateGuardApi } from '../api'
-import { Building } from './content'
+import { Building } from './entity'
 
 type BaseBotContext = Context & SceneContextMessageUpdate;
 
