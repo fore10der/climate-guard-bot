@@ -36,3 +36,11 @@ export interface BotContext extends BaseBotContext {
     session: BotSession;
     wizard: Wizard;
 }
+
+export interface StorageInstance {
+    id: string
+}
+
+export interface LocalStorage {
+    sessions: StorageInstance[]
+}

@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf'
 import * as dotenv from 'dotenv'
 import { inputs } from './stages/inputs'
-import { moveToScene } from './utils'
+import { initJobs, moveToScene, unbindNotification } from './utils'
 import { AUTH } from './stages/inputs/auth'
 import TelegrafSession from 'telegraf-session-local'
 import chalk from 'chalk'
@@ -19,6 +19,7 @@ const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.token, async (ct
   } catch (e) {
     console.log(e)
   }
+  unbindNotification(ctx.chat.id.toString())
   ctx.session = {}
   await ctx.reply('Пока')
 })
@@ -26,6 +27,9 @@ const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.token, async (ct
 const localSession = new TelegrafSession({
   database: 'persist/sessions.json'
 })
+
+// @ts-ignore
+initJobs(localSession.DB.value())
 
 bot.use(
   updateLogger({

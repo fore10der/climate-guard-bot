@@ -2,7 +2,7 @@ import WizardScene from 'telegraf/scenes/wizard'
 import { BaseScene } from 'telegraf'
 import { BotContext } from '../../interfaces/bot'
 import { ClimateGuardApi } from '../../api'
-import { backToMenu } from '../../utils'
+import { backToMenu, bindNotification } from '../../utils'
 
 export const AUTH = 'AUTH'
 
@@ -10,6 +10,7 @@ const mapResultAction = async (result: string, ctx: BotContext) => {
   if (result) {
     ctx.session.token = result
     ctx.session.entities = {}
+    bindNotification(ctx.chat.id.toString())
     return backToMenu(ctx)
   } else {
     await ctx.reply('Неизвестная ошибка')
