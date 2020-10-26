@@ -1,23 +1,26 @@
 import { BACK_BUTTONS, PAGINATE } from '../../constants'
 import { MenuTemplate } from 'telegraf-inline-menu/dist/source/menu-template'
-import { BotContext } from '../../interfaces/bot'
-import { ROOM } from '../roomsView'
+import { BotContext, Entity } from '../../interfaces/bot'
+import { ROOM, roomListView } from '../roomsView'
 import { buildChoicesList, buildChoicesOptions, buildPaginationOptions } from '../../utils/builders'
+import { ClimateGuardApi } from '../../api'
+import { Room } from '../../interfaces'
 
 export const BUILDING = 'building'
 
-export const buildingsView = new MenuTemplate<BotContext>(async (ctx) => {
-  const { api } = ctx.session
-  ctx.session.entities.building.list = await api.getBuildings()
+export const buildingListView = new MenuTemplate<BotContext>(async (ctx) => {
+  const { token } = ctx.session
+  ctx.session.entities.room = new Entity<Room>()
+  ctx.session.entities.building.list = await ClimateGuardApi.getBuildings(token)
   return 'Строения'
 })
 
-buildingsView.chooseIntoSubmenu(ROOM,
+buildingListView.chooseIntoSubmenu(ROOM,
   buildChoicesList(BUILDING),
-  new MenuTemplate('Мок'),
+  roomListView,
   buildChoicesOptions(BUILDING, 'title_building')
 )
 
-buildingsView.pagination(PAGINATE, buildPaginationOptions(BUILDING))
+buildingListView.pagination(PAGINATE, buildPaginationOptions(BUILDING))
 
-buildingsView.manualRow(BACK_BUTTONS)
+buildingListView.manualRow(BACK_BUTTONS)

@@ -6,8 +6,9 @@ import { backToMenu } from '../../utils'
 
 export const AUTH = 'AUTH'
 
-const mapResultAction = async (result: boolean, ctx: BotContext) => {
+const mapResultAction = async (result: string, ctx: BotContext) => {
   if (result) {
+    ctx.session.token = result
     ctx.session.entities = {}
     return backToMenu(ctx)
   } else {
@@ -37,10 +38,9 @@ export const auth: BaseScene<BotContext> = new WizardScene(
     if (text) {
       ctx.scene.state['password'] = text
       const state = ctx.scene.state
-      ctx.session.api = new ClimateGuardApi()
       let result
       try {
-        result = await ctx.session.api.auth(state['login'], state['password'])
+        result = await ClimateGuardApi.auth(state['login'], state['password'])
       } catch (e) {
         await ctx.reply(e.message)
         await ctx.reply('Введите логин')

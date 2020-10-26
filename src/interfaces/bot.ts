@@ -1,27 +1,28 @@
 import { Context } from 'telegraf'
 import { SceneContextMessageUpdate } from 'telegraf/typings/stage'
-import { ClimateGuardApi } from '../api'
-import { Building } from './entity'
+import { BaseEntity } from './entity'
 
 type BaseBotContext = Context & SceneContextMessageUpdate;
 
 export class Entity<T> {
     list: T[]
     page: number
+    detail: T
 
     constructor () {
       this.list = []
+      this.detail = null
       this.page = 1
     }
 }
 
 export interface Entities {
-    building?: Entity<Building>
+    [key: string]: Entity<BaseEntity>
 }
 
 export interface BotSession {
     path?: string
-    api?: ClimateGuardApi
+    token?: string,
     menuMessageId?: number
     entities?: Entities
 }

@@ -3,7 +3,7 @@ import { MenuMiddleware } from 'telegraf-inline-menu/dist/source/menu-middleware
 import { MenuTemplate } from 'telegraf-inline-menu/dist/source/menu-template'
 import { Telegraf } from 'telegraf'
 import { SUPPORT, supportView } from './supportView'
-import { BUILDING, buildingsView } from './buildingsView'
+import { BUILDING, buildingListView } from './buildingsView'
 import { Building } from '../interfaces'
 
 export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
@@ -12,7 +12,7 @@ export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
 })
 
 mainMenu.submenu('Поддержка', SUPPORT, supportView)
-mainMenu.submenu('Строения', BUILDING, buildingsView)
+mainMenu.submenu('Строения', BUILDING, buildingListView)
 
 export const menuMiddleware = new MenuMiddleware('/', mainMenu)
-export const securedMenuMiddleware = Telegraf.optional((ctx) => !!ctx.session.api, menuMiddleware.middleware())
+export const securedMenuMiddleware = Telegraf.optional((ctx) => !!ctx.session.token, menuMiddleware.middleware())

@@ -12,8 +12,8 @@ dotenv.config()
 export const bot = new Telegraf<BotContext>(process.env.BOT_TOKEN)
 export const telegram = bot.telegram
 
-const start = Telegraf.optional<BotContext>(ctx => !ctx.session.api, async (ctx) => await moveToScene(AUTH)(ctx, '/'))
-const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.api, async (ctx) => {
+const start = Telegraf.optional<BotContext>(ctx => !ctx.session.token, async (ctx) => await moveToScene(AUTH)(ctx, '/'))
+const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.token, async (ctx) => {
   try {
     await ctx.deleteMessage(ctx.session.menuMessageId)
   } catch (e) {
