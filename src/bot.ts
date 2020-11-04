@@ -19,7 +19,7 @@ const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.token, async (ct
   } catch (e) {
     console.log(e)
   }
-  unbindNotification(ctx.chat.id.toString())
+  // unbindNotification(ctx.chat.id.toString())
   ctx.session = {}
   await ctx.reply('Пока')
 })
@@ -29,7 +29,7 @@ const localSession = new TelegrafSession({
 })
 
 // @ts-ignore
-initJobs(localSession.DB.value())
+// initJobs(localSession.DB.value())
 
 bot.use(
   updateLogger({
