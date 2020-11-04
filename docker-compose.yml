@@ -1,20 +1,10 @@
 version: "3.8"
 services:
-  pg:
-    image: postgres:13.0-alpine
-    container_name: ads_manager_db
-    environment:
-      POSTGRES_PASSWORD: 12345678
-      POSTGRES_DB: ads_manager
-      POSTGRES_USER: postgres
-    restart: always
   bot:
     build: .
-    container_name: ads_manager_bot
+    container_name: climate-bot
     env_file:
       - .env
     restart: always
     volumes:
     - ./persist:/app/persist
-    links:
-      - pg

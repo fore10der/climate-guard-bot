@@ -17,4 +17,4 @@ COPY --from=0 /build/node_modules ./node_modules
 COPY --from=0 /build/dist ./
 
 
-CMD node --unhandled-rejections=strict -r source-map-support/register bot/index.js
+CMD node --unhandled-rejections=strict -r source-map-support/register index.js
