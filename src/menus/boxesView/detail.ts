@@ -7,7 +7,7 @@ import { Box } from '../../interfaces'
 import moment from 'moment'
 
 const buildBoxLastData = (boxDetail: Box) => {
-  const date = moment(boxDetail.measured_at * 1000).format('YYYY-MM-DD hh:mm')
+  const date = moment(boxDetail.measured_at * 1000).format('hh:mm:ss DD:MM:YYYY')
   let text = ''
   text += `Отчет от: ${date}\n`
   text += 'Параметры:\n\n'
