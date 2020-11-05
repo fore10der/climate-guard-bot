@@ -12,7 +12,6 @@ export const boxListView = new MenuTemplate<BotContext>(async (ctx, path) => {
   const id = getID(path)
   const { token } = ctx.session
   ctx.session.entities.box.list = await ClimateGuardApi.getBoxes(id, token)
-  console.log(ctx.session.entities.box.list)
   return 'Коробки'
 })
 
