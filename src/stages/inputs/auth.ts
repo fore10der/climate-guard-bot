@@ -1,5 +1,5 @@
 import WizardScene from 'telegraf/scenes/wizard'
-import { BaseScene } from 'telegraf'
+import { BaseScene, Extra, Markup } from 'telegraf'
 import { BotContext } from '../../interfaces/bot'
 import { ClimateGuardApi } from '../../api'
 import { backToMenu, bindNotification } from '../../utils'
@@ -20,7 +20,7 @@ const mapResultAction = async (result: string, ctx: BotContext) => {
 export const auth: BaseScene<BotContext> = new WizardScene(
   AUTH,
   async (ctx: BotContext) => {
-    await ctx.reply('Добро пожаловать в бота ClimateGuardBot')
+    await ctx.reply('Добро пожаловать в бота ClimateGuardBot', Extra.markup(Markup.removeKeyboard()))
     await ctx.reply('Введите логин')
     return ctx.wizard.next()
   },
