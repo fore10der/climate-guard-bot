@@ -12,13 +12,14 @@ export const boxListView = new MenuTemplate<BotContext>(async (ctx, path) => {
   const id = getID(path)
   const { token } = ctx.session
   ctx.session.entities.box.list = await ClimateGuardApi.getBoxes(id, token)
+  console.log(ctx.session.entities.box.list)
   return 'Коробки'
 })
 
 boxListView.chooseIntoSubmenu(BOX,
   buildChoicesList(BOX),
   boxDetailView,
-  buildChoicesOptions(BOX, 'chip_id')
+  buildChoicesOptions(BOX, ['name', 'chip_id'])
 )
 
 boxListView.pagination(PAGINATE, buildPaginationOptions(BOX))

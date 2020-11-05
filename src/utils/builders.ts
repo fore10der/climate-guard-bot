@@ -13,9 +13,20 @@ export const buildChoicesList = (entityKey: keyof Entities) => {
   }
 }
 
-export function buildChoicesOptions (entityKey: keyof Entities, titleKey: string, overwriteOptions: Partial<ChooseIntoSubmenuOptions<BotContext>> = {}) {
+export function buildChoicesOptions (entityKey: keyof Entities, titleKey: string | string[], overwriteOptions: Partial<ChooseIntoSubmenuOptions<BotContext>> = {}) {
   const options: ChooseIntoSubmenuOptions<BotContext> = {
-    buttonText: (ctx, key) => ctx.session.entities[entityKey].list.find(group => group.id.toString() === key)[titleKey],
+    buttonText: (ctx, key) => {
+      const entity = ctx.session.entities[entityKey].list.find(group => group.id.toString() === key)
+      if (Array.isArray(titleKey)) {
+        for (const key of titleKey) {
+          if (entity[key]) {
+            return entity[key]
+          }
+        }
+      } else {
+        return entity[titleKey]
+      }
+    },
     columns: 1,
     ...overwriteOptions
   }
