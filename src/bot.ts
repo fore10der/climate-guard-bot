@@ -8,6 +8,7 @@ import chalk from 'chalk'
 import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
+import { queryHandler } from './menus/searchView'
 dotenv.config()
 export const bot = new Telegraf<BotContext>(process.env.BOT_TOKEN)
 export const telegram = bot.telegram
@@ -50,6 +51,7 @@ bot.use(securedMenuMiddleware)
 
 bot.start(start)
 bot.command('stop', stop)
+bot.on('text', queryHandler)
 
 bot.catch((e) => {
   console.log(e)

@@ -5,6 +5,7 @@ import { Telegraf } from 'telegraf'
 import { SUPPORT, supportView } from './supportView'
 import { BUILDING, buildingListView } from './buildingsView'
 import { Building } from '../interfaces'
+import { SEARCH, searchView } from './searchView'
 
 export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
   ctx.session.entities.building = new Entity<Building>()
@@ -13,6 +14,7 @@ export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
 
 mainMenu.submenu('Поддержка', SUPPORT, supportView)
 mainMenu.submenu('Строения', BUILDING, buildingListView)
+mainMenu.submenu('Поиск', SEARCH, searchView)
 
 export const menuMiddleware = new MenuMiddleware('/', mainMenu)
 export const securedMenuMiddleware = Telegraf.optional((ctx) => !!ctx.session.token, menuMiddleware.middleware())

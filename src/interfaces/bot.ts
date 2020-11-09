@@ -25,6 +25,7 @@ export interface BotSession {
     token?: string,
     menuMessageId?: number
     entities?: Entities
+    searchQuery?: string
 }
 
 interface Wizard {

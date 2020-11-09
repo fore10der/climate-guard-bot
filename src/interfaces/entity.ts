@@ -27,6 +27,7 @@ interface MeasureData {
 }
 
 export interface Box extends BaseEntity {
+    name: string
     chip_id: string
     measured_at?: number
     all_data?: {
