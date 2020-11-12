@@ -51,7 +51,7 @@ bot.use(securedMenuMiddleware)
 
 bot.start(start)
 bot.command('stop', stop)
-bot.on('text', queryHandler)
+// bot.on('text', queryHandler)
 
 bot.catch((e) => {
   console.log(e)

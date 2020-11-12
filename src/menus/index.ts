@@ -14,7 +14,9 @@ export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
 
 mainMenu.submenu('Поддержка', SUPPORT, supportView)
 mainMenu.submenu('Строения', BUILDING, buildingListView)
-mainMenu.submenu('Поиск', SEARCH, searchView)
+mainMenu.submenu('Поиск', SEARCH, searchView, {
+  hide: () => true
+})
 
 export const menuMiddleware = new MenuMiddleware('/', mainMenu)
 export const securedMenuMiddleware = Telegraf.optional((ctx) => !!ctx.session.token, menuMiddleware.middleware())
