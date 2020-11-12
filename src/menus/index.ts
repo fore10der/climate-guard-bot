@@ -3,9 +3,11 @@ import { MenuMiddleware } from 'telegraf-inline-menu/dist/source/menu-middleware
 import { MenuTemplate } from 'telegraf-inline-menu/dist/source/menu-template'
 import { Telegraf } from 'telegraf'
 import { SUPPORT, supportView } from './supportView'
-import { BUILDING, buildingListView } from './buildingsView'
+import { buildingListView } from './buildingsView'
 import { Building } from '../interfaces'
 import { SEARCH, searchView } from './searchView'
+
+const ENTITIES = 'entities'
 
 export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
   ctx.session.entities.building = new Entity<Building>()
@@ -13,7 +15,7 @@ export const mainMenu = new MenuTemplate<BotContext>((ctx) => {
 })
 
 mainMenu.submenu('Поддержка', SUPPORT, supportView)
-mainMenu.submenu('Строения', BUILDING, buildingListView)
+mainMenu.submenu('Строения', ENTITIES, buildingListView)
 mainMenu.submenu('Поиск', SEARCH, searchView, {
   hide: () => true
 })

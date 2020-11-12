@@ -1,4 +1,4 @@
-export const ID = /\d+/
+export const ID = /\d+/g
 
 export const getID = (path: string) => {
   const found = path.match(ID)
