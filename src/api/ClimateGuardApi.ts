@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { TokenResponse } from './interfaces/token'
 import { Box, Building, Room } from '../interfaces'
+import { PORTAL_URL } from '../settings'
 
-const BASE_URL = 'https://api.climateguard.info'
+const BASE_URL = PORTAL_URL
 
 const buildHeaders = (token: string): AxiosRequestConfig => {
   return {

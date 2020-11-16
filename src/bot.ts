@@ -9,8 +9,9 @@ import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
 import { queryHandler } from './menus/searchView'
+import { BOT_TOKEN } from './settings'
 dotenv.config()
-export const bot = new Telegraf<BotContext>(process.env.BOT_TOKEN)
+export const bot = new Telegraf<BotContext>(BOT_TOKEN)
 export const telegram = bot.telegram
 
 const start = Telegraf.optional<BotContext>(ctx => !ctx.session.token, async (ctx) => {
