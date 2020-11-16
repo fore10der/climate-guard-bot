@@ -49,4 +49,9 @@ export class ClimateGuardApi {
     const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData?box_id=${box_id}`, buildHeaders(token))
     return response.data
   }
+
+  static async searchBoxes (query: string, token: string) {
+    const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes?name_or_uuid=${query}`, buildHeaders(token))
+    return response.data
+  }
 }
