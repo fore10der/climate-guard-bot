@@ -10,7 +10,6 @@ export const BUILDING = 'building'
 
 export const buildingListView = new MenuTemplate<BotContext>(async (ctx) => {
   const { token } = ctx.session
-  ctx.session.entities.room = new Entity<Room>()
   ctx.session.entities.building.list = await ClimateGuardApi.getBuildings(token)
   return 'Строения'
 })

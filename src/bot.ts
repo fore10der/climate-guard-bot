@@ -8,7 +8,7 @@ import chalk from 'chalk'
 import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
-import { queryHandler, searchMiddleware } from './menus/searchView'
+import { queryHandler, securedSearchMiddleware } from './menus/searchView'
 import { BOT_TOKEN } from './settings'
 dotenv.config()
 export const bot = new Telegraf<BotContext>(BOT_TOKEN)
@@ -48,9 +48,8 @@ bot.use(
 
 bot.use(localSession.middleware())
 bot.use(inputs.middleware())
+bot.use(securedSearchMiddleware)
 bot.use(securedMenuMiddleware)
-bot.use(searchMiddleware.middleware())
-
 bot.start(start)
 bot.command('stop', stop)
 bot.on('text', queryHandler)
