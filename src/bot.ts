@@ -1,6 +1,5 @@
 import { Telegraf } from 'telegraf'
-import * as dotenv from 'dotenv'
-import { inputs } from './stages/inputs'
+import { inputs } from './stages'
 import { initJobs, moveToScene, unbindNotification } from './utils'
 import { AUTH } from './stages/inputs/auth'
 import TelegrafSession from 'telegraf-session-local'
@@ -10,7 +9,6 @@ import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
 import { queryHandler, securedSearchMiddleware } from './menus/searchView'
 import { BOT_TOKEN } from './settings'
-dotenv.config()
 export const bot = new Telegraf<BotContext>(BOT_TOKEN)
 export const telegram = bot.telegram
 
@@ -23,7 +21,7 @@ const stop = Telegraf.optional<BotContext>(ctx => !!ctx.session.token, async (ct
   } catch (e) {
     console.log(e)
   }
-  // unbindNotification(ctx.chat.id.toString())
+  unbindNotification(ctx.chat.id.toString())
   ctx.session = {}
   await ctx.reply('Пока')
 })
@@ -33,7 +31,7 @@ const localSession = new TelegrafSession({
 })
 
 // @ts-ignore
-// initJobs(localSession.DB.value())
+initJobs(localSession.DB.value())
 
 bot.use(
   updateLogger({

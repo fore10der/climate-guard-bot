@@ -9,7 +9,7 @@ const checkNotifications = (chatId: string) => {
 }
 
 export const bindNotification = (chatId: string) => {
-  scheduleJob(chatId, '*/1 * * * *', checkNotifications(chatId)).invoke()
+  scheduleJob(chatId, '*/10 * * * *', checkNotifications(chatId)).invoke()
 }
 
 export const unbindNotification = (chatId: string) => {
