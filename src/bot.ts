@@ -9,6 +9,7 @@ import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
 import { queryHandler, securedSearchMiddleware } from './menus/searchView'
 import { BOT_TOKEN } from './settings'
+import { CLOSE_NOTIFICATION } from './constants'
 export const bot = new Telegraf<BotContext>(BOT_TOKEN)
 export const telegram = bot.telegram
 
@@ -48,6 +49,7 @@ bot.use(localSession.middleware())
 bot.use(inputs.middleware())
 bot.use(securedSearchMiddleware)
 bot.use(securedMenuMiddleware)
+bot.action(CLOSE_NOTIFICATION, ctx => ctx.deleteMessage(ctx.callbackQuery.message.message_id))
 bot.start(start)
 bot.command('stop', stop)
 bot.on('text', queryHandler)
