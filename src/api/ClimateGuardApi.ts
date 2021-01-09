@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { TokenResponse } from './interfaces/token'
-import { Box, Building, Room } from '../interfaces'
+import { Box, Building, NotificationsResponse, Room } from '../interfaces'
 import { PORTAL_URL } from '../settings'
 
 const BASE_URL = PORTAL_URL
@@ -56,7 +56,7 @@ export class ClimateGuardApi {
   }
 
   static async getNotifications (token: string) {
-    const response = await axios.get(`${BASE_URL}/api/telegramBot/getNotifications`, buildHeaders(token))
+    const response = await axios.get<NotificationsResponse>(`${BASE_URL}/api/telegramBot/getNotifications`, buildHeaders(token))
     return response.data
   }
 }

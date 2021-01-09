@@ -36,3 +36,47 @@ export interface Box extends BaseEntity {
         [key: string]: MeasureData
     }
 }
+
+interface BaseNotification {
+    label?: string
+    measure?: string
+}
+
+interface Score {
+    value?: string
+    color?: Color
+}
+
+interface RegularNotification extends BaseNotification {
+    max: Score
+    min: Score
+}
+
+interface EventNotification extends BaseNotification, Score {
+    type: string
+    description: string
+    event_time: string
+}
+
+interface NotificationsMap {
+    event: EventNotification[]
+    regular: RegularNotification[]
+}
+
+interface NotificationsData {
+    last_reported: string
+    reported_at: string
+    box_id: number
+    uuid: string
+    name: string
+    room_id: number
+    room_title: string
+    building_id: number
+    building_title: string
+    notifications: NotificationsMap
+}
+
+export interface NotificationsResponse extends BaseEntity {
+    message: string,
+    data: NotificationsData
+}
