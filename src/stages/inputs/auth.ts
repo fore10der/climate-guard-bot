@@ -10,7 +10,7 @@ const mapResultAction = async (result: string, ctx: BotContext) => {
   if (result) {
     ctx.session.token = result
     ctx.session.entities = {}
-    bindNotification(ctx.chat.id.toString())
+    bindNotification(ctx.chat.id.toString(), ctx.session.token)
     return backToMenu(ctx)
   } else {
     await ctx.reply('Неизвестная ошибка')

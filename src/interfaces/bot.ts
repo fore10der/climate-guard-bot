@@ -40,6 +40,7 @@ export interface BotContext extends BaseBotContext {
 
 export interface StorageInstance {
     id: string
+    data: BotSession
 }
 
 export interface LocalStorage {
