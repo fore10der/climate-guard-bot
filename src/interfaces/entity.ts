@@ -47,12 +47,12 @@ interface Score {
     color?: Color
 }
 
-interface RegularNotification extends BaseNotification {
+export interface RegularNotification extends BaseNotification {
     max: Score
     min: Score
 }
 
-interface EventNotification extends BaseNotification, Score {
+export interface EventNotification extends BaseNotification, Score {
     type: string
     description: string
     event_time: string
@@ -64,8 +64,6 @@ interface NotificationsMap {
 }
 
 interface NotificationsData {
-    last_reported: string
-    reported_at: string
     box_id: number
     uuid: string
     name: string
@@ -78,5 +76,7 @@ interface NotificationsData {
 
 export interface NotificationsResponse extends BaseEntity {
     message: string,
-    data: NotificationsData
+    data: NotificationsData[]
+    last_reported: string
+    reported_at: string
 }
