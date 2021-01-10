@@ -9,9 +9,9 @@ import moment from 'moment'
 const buildHeader = (boxTitle: string, roomTitle: string, buildingTitle: string, from: string, to?: string): string => {
   let text: string = ''
   if (to) {
-    text += `Период: ${moment(from).format('hh:mm:ss DD.MM.YY')} - ${moment(to).format('hh:mm:ss DD.MM.YY')}\n`
+    text += `Период: ${moment(from).format('hh:mm DD.MM.YY')} - ${moment(to).format('hh:mm DD.MM.YY')}\n`
   } else {
-    text += `Время события: ${moment(from).format('hh:mm:ss DD.MM.YY')}\n`
+    text += `Время события: ${moment(from).format('hh:mm DD.MM.YY')}\n`
   }
   text += `Устройство: ${boxTitle}\n`
   text += `Комната: ${roomTitle}\n`
