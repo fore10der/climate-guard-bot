@@ -7,26 +7,26 @@ import { CLOSE_EXTRA, HEARTS } from '../constants'
 import moment from 'moment'
 
 const buildHeader = (boxTitle: string, roomTitle: string, buildingTitle: string, from: string, to?: string): string => {
-  let text: string = `Устройство: ${boxTitle}\n`
-  text += `Комната: ${roomTitle}\n`
-  text += `Строение: ${buildingTitle}\n`
+  let text: string = ''
   if (to) {
-    text += `ДАННЫЕ ЗА ПЕРИОД ${moment(from).format('hh:mm:ss DD.MM.YYYY')} - ${moment(to).format('hh:mm:ss DD.MM.YYYY')}\n`
+    text += `Период: ${moment(from).format('hh:mm:ss DD.MM.YY')} - ${moment(to).format('hh:mm:ss DD.MM.YY')}\n`
   } else {
-    text += `СОБЫТИЕ ОТ ${moment(from).format('hh:mm:ss DD.MM.YYYY')}\n`
+    text += `Время события: ${moment(from).format('hh:mm:ss DD.MM.YY')}\n`
   }
+  text += `Устройство: ${boxTitle}\n`
+  text += `Комната: ${roomTitle}\n`
+  text += `Строение: ${buildingTitle}\n\n`
   return text
 }
 
 const buildRegularNotification = (notifications: RegularNotification[], header: string): string => {
-  let text = 'РЕГУЛЯРНОЕ УВЕДОМЛЕНИЕ\n'
+  let text = '<u>РЕГУЛЯРНОЕ УВЕДОМЛЕНИЕ</u>\n'
   text += header
-  text += 'ПАРАМЕТРЫ:\n'
   for (const notification of notifications) {
     text += `<b>${notification.label}</b>\n`
-    text += `Максимальное значение: ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
+    text += `Мин: ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
     text += '\n'
-    text += `Минимальное значение: ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
+    text += `Макс: ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
     text += '\n'
   }
   return text
