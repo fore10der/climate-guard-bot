@@ -11,7 +11,7 @@ const buildHeader = (boxTitle: string, roomTitle: string, buildingTitle: string,
   if (to) {
     text += `Период: ${moment(from).format('hh:mm DD.MM.YY')} - ${moment(to).format('hh:mm DD.MM.YY')}\n`
   } else {
-    text += `Время события: ${moment(from).format('hh:mm DD.MM.YY')}\n`
+    text += `Время: ${moment(from).format('hh:mm DD.MM.YY')}\n`
   }
   text += `Устройство: ${boxTitle}\n`
   text += `Комната: ${roomTitle}\n`
@@ -33,11 +33,11 @@ const buildRegularNotification = (notifications: RegularNotification[], header: 
 }
 
 const buildEventNotification = (notification: EventNotification, header: string): string => {
-  let text = 'ПРОИЗОШЛО СОБЫТИЕ\n'
+  let text = '<u>СОБЫТИЙНОЕ УВЕДОМЛЕНИЕ</u>\n'
   text += `Описание: ${notification.description}\n`
   text += header
-  text += `<b>${notification.label}</b>\n`
-  text += `Значение: ${notification.value} ${notification.measure} ${HEARTS[notification.color] ? HEARTS[notification.color] : ''}`
+  text += `<b>${notification.label}</b>:`
+  text += `${notification.value} ${notification.measure} ${HEARTS[notification.color] ? HEARTS[notification.color] : ''}`
   text += '\n'
   return text
 }
@@ -80,8 +80,11 @@ const checkNotifications = (chatId: string, token: string) => {
   }
 }
 
-export const bindNotification = (chatId: string, token: string) => {
-  scheduleJob(chatId, '*/10 * * * *', checkNotifications(chatId, token)).invoke()
+export const bindNotification = (chatId: string, token: string, skipInvoke?: boolean) => {
+  const job = scheduleJob(chatId, '*/10 * * * *', checkNotifications(chatId, token))
+  if (!skipInvoke) {
+    job.invoke()
+  }
 }
 
 export const unbindNotification = (chatId: string) => {
@@ -93,6 +96,6 @@ export const initJobs = (storage : LocalStorage) => {
   const sessions = storage.sessions
   for (const session of sessions) {
     const [chatId] = session.id.split(':')
-    bindNotification(chatId, session.data.token)
+    bindNotification(chatId, session.data.token, true)
   }
 }
