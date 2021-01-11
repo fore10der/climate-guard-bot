@@ -34,10 +34,10 @@ const buildRegularNotification = (notifications: RegularNotification[], header: 
 
 const buildEventNotification = (notification: EventNotification, header: string): string => {
   let text = '<u>СОБЫТИЙНОЕ УВЕДОМЛЕНИЕ</u>\n'
-  text += `Описание: ${notification.description}\n`
-  text += header
   text += `<b>${notification.label}</b>:`
-  text += `${notification.value} ${notification.measure} ${HEARTS[notification.color] ? HEARTS[notification.color] : ''}`
+  text += `${notification.value} ${notification.measure} ${HEARTS[notification.color] ? HEARTS[notification.color] : ''}\n`
+  // text += `Описание: ${notification.description}\n`
+  text += header
   text += '\n'
   return text
 }
