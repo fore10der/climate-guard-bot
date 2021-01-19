@@ -82,7 +82,7 @@ const checkNotifications = (chatId: string, token: string) => {
 }
 
 export const bindNotification = (chatId: string, token: string, skipInvoke?: boolean) => {
-  const job = scheduleJob(chatId, '*/5 * * * *', checkNotifications(chatId, token))
+  const job = scheduleJob(chatId, '*/10 * * * *', checkNotifications(chatId, token))
   if (!skipInvoke) {
     job.invoke()
   }
