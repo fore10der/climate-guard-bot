@@ -24,9 +24,9 @@ const buildRegularNotification = (notifications: RegularNotification[], header: 
   text += header
   for (const notification of notifications) {
     text += `<b>${notification.label}</b>\n`
-    text += `Мин: ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
+    text += `Мин: за ${moment(notification.min.date_time).format('hh:mm DD.MM.YY')} ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
     text += '\n'
-    text += `Макс: ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
+    text += `Макс: за ${moment(notification.max.date_time).format('hh:mm DD.MM.YY')} ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
     text += '\n'
   }
   return text

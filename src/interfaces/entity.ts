@@ -45,6 +45,7 @@ interface BaseNotification {
 interface Score {
     value?: string
     color?: Color
+    date_time: string
 }
 
 export interface RegularNotification extends BaseNotification {
