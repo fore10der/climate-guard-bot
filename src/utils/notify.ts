@@ -9,9 +9,9 @@ import moment from 'moment'
 const buildHeader = (boxTitle: string, roomTitle: string, buildingTitle: string, from: string, to?: string): string => {
   let text: string = ''
   if (to) {
-    text += `Период: ${moment(from).format('hh:mm DD.MM.YY')} - ${moment(to).format('hh:mm DD.MM.YY')}\n`
+    text += `Период: ${moment(from).format('HH:mm DD.MM.YY')} - ${moment(to).format('HH:mm DD.MM.YY')}\n`
   } else {
-    text += `Время: ${moment(from).format('hh:mm DD.MM.YY')}\n`
+    text += `Время: ${moment(from).format('HH:mm DD.MM.YY')}\n`
   }
   text += `Устройство: ${boxTitle}\n`
   text += `Комната: ${roomTitle}\n`
@@ -24,9 +24,9 @@ const buildRegularNotification = (notifications: RegularNotification[], header: 
   text += header
   for (const notification of notifications) {
     text += `<b>${notification.label}</b>\n`
-    text += `Мин: за ${moment(notification.min.date_time).format('hh:mm DD.MM.YY')} ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
+    text += `Мин: за ${moment(notification.min.date_time).format('HH:mm DD.MM.YY')} ${notification.min.value} ${notification.measure} ${HEARTS[notification.min.color] ? HEARTS[notification.min.color] : ''}`
     text += '\n'
-    text += `Макс: за ${moment(notification.max.date_time).format('hh:mm DD.MM.YY')} ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
+    text += `Макс: за ${moment(notification.max.date_time).format('HH:mm DD.MM.YY')} ${notification.max.value} ${notification.measure} ${HEARTS[notification.max.color] ? HEARTS[notification.max.color] : ''}`
     text += '\n'
   }
   return text
