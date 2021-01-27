@@ -4,6 +4,7 @@ import { initJobs, moveToScene, unbindNotification } from './utils'
 import { AUTH } from './stages/inputs/auth'
 import TelegrafSession from 'telegraf-session-local'
 import chalk from 'chalk'
+import { Category, CategoryServiceFactory, CategoryConfiguration, LogLevel } from 'typescript-logging'
 import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
@@ -12,6 +13,9 @@ import { BOT_TOKEN } from './settings'
 import { CLOSE_NOTIFICATION } from './constants'
 export const bot = new Telegraf<BotContext>(BOT_TOKEN)
 export const telegram = bot.telegram
+CategoryServiceFactory.setDefaultConfiguration(new CategoryConfiguration(LogLevel.Info))
+export const botLogger = new Category('bot')
+export const notificationLogger = new Category('notifications', botLogger)
 
 const start = Telegraf.optional<BotContext>(ctx => !ctx.session.token, async (ctx) => {
   await moveToScene(AUTH)(ctx, '/')

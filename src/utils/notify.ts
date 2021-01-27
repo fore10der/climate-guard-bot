@@ -1,4 +1,4 @@
-import { telegram } from '../bot'
+import { notificationLogger, telegram } from '../bot'
 import { scheduledJobs, scheduleJob } from 'node-schedule'
 import { LocalStorage } from '../interfaces/bot'
 import { ClimateGuardApi } from '../api'
@@ -45,8 +45,8 @@ const buildEventNotification = (notification: EventNotification, header: string)
 const checkNotifications = (chatId: string, token: string) => {
   return async () => {
     const notifications = await ClimateGuardApi.getNotifications(token)
-    console.log(chatId)
-    console.log(JSON.stringify(notifications))
+    notificationLogger.info(chatId + ' ' + token)
+    notificationLogger.info(JSON.stringify(notifications))
     if (notifications?.data) {
       const notificationsData = notifications.data || []
       for (const node of notificationsData) {

@@ -1,5 +1,5 @@
-import { bot } from './bot'
+import { bot, botLogger } from './bot'
 
 bot.launch().then(() => {
-  console.log('bot works')
+  botLogger.info('bot works')
 })
