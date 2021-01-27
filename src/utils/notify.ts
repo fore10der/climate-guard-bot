@@ -98,6 +98,8 @@ export const initJobs = (storage : LocalStorage) => {
   const sessions = storage.sessions
   for (const session of sessions) {
     const [chatId] = session.id.split(':')
-    bindNotification(chatId, session.data.token, true)
+    if (session.data.token) {
+      bindNotification(chatId, session.data.token, true)
+    }
   }
 }
