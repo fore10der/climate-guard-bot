@@ -44,7 +44,7 @@ const buildEventNotification = (notification: EventNotification, header: string)
 
 const checkNotifications = (chatId: string, token: string) => {
   return async () => {
-    const notifications = await ClimateGuardApi.getNotifications(token)
+    const notifications = await ClimateGuardApi.getNotifications(token, chatId)
     notificationLogger.info(chatId + ' ' + token)
     notificationLogger.info(JSON.stringify(notifications))
     if (notifications?.data) {

@@ -55,9 +55,11 @@ export class ClimateGuardApi {
     return response.data
   }
 
-  static async getNotifications (token: string) {
+  static async getNotifications (token: string, chatId: string) {
     try {
-      const response = await axios.get<NotificationsResponse>(`${BASE_URL}/api/telegramBot/getNotifications`, buildHeaders(token))
+      const response = await axios.get<NotificationsResponse>(
+          `${BASE_URL}/api/telegramBot/getNotifications?telegram_id=${chatId}`, buildHeaders(token)
+      )
       return response.data
     } catch (e) {
       console.log(e)
