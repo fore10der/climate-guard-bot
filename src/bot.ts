@@ -9,7 +9,7 @@ import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
 import { securedMenuMiddleware } from './menus'
 import { queryHandler, securedSearchMiddleware } from './menus/searchView'
-import { BOT_TOKEN } from './settings'
+import { BOT_TOKEN, REBOOT_SECRET } from './settings'
 import { CLOSE_NOTIFICATION } from './constants'
 export const bot = new Telegraf<BotContext>(BOT_TOKEN)
 export const telegram = bot.telegram
@@ -50,6 +50,10 @@ bot.use(
   })
 )
 
+bot.hears(REBOOT_SECRET, async (ctx) => {
+  await ctx.reply('Перезапуск...')
+  process.exit()
+})
 bot.use(localSession.middleware())
 bot.use(inputs.middleware())
 bot.use(securedSearchMiddleware)
