@@ -7,7 +7,7 @@ type BaseBotContext = Context & SceneContextMessageUpdate;
 export class Entity<T> {
     list: T[]
     page: number
-    detail: T
+    detail: T | {}
 
     constructor () {
       this.list = []
