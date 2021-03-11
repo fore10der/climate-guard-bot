@@ -43,7 +43,12 @@ export class ClimateGuardApi {
 
   static async getRooms (building_id: number, token: string) {
     try {
-      const response = await axios.get<Room[]>(`${BASE_URL}/api/telegramBot/getRooms?building_id=${building_id}`, buildHeaders(token))
+      const response = await axios.get<Room[]>(`${BASE_URL}/api/telegramBot/getRooms`, {
+        ...buildHeaders(token),
+        params: {
+          building_id
+        }
+      })
       return response.data
     } catch (e) {
       requestLogger.info(e.message)
@@ -53,7 +58,12 @@ export class ClimateGuardApi {
 
   static async getBoxes (room_id: number, token: string) {
     try {
-      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/getBoxes?room_id=${room_id}`, buildHeaders(token))
+      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/getBoxes`, {
+        ...buildHeaders(token),
+        params: {
+          room_id
+        }
+      })
       return response.data
     } catch (e) {
       requestLogger.info(e.message)
@@ -63,7 +73,12 @@ export class ClimateGuardApi {
 
   static async getBoxLastData (box_id: number, token: string) {
     try {
-      const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData?box_id=${box_id}`, buildHeaders(token))
+      const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData`, {
+        ...buildHeaders(token),
+        params: {
+          box_id
+        }
+      })
       return response.data
     } catch (e) {
       requestLogger.info(e.message)
@@ -73,7 +88,12 @@ export class ClimateGuardApi {
 
   static async searchBoxes (query: string, token: string) {
     try {
-      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes?name_or_uuid=${query}`, buildHeaders(token))
+      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes`, {
+        ...buildHeaders(token),
+        params: {
+          name_or_uuid: query
+        }
+      })
       return response.data
     } catch (e) {
       requestLogger.info(e.message)
