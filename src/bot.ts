@@ -50,10 +50,10 @@ bot.use(
   })
 )
 
-bot.hears(REBOOT_SECRET, async (ctx) => {
-  await ctx.reply('Перезапуск...')
-  process.exit()
-})
+// bot.hears([REBOOT_SECRET], async (ctx) => {
+//   await ctx.reply('Перезапуск...')
+//   await bot.stop()
+// })
 bot.use(localSession.middleware())
 bot.use(inputs.middleware())
 bot.use(securedSearchMiddleware)

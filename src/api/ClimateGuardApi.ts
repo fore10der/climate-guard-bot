@@ -78,6 +78,7 @@ export class ClimateGuardApi {
       return response.data
     } catch (e) {
       requestLogger.info(e)
+      return []
     }
   }
 
