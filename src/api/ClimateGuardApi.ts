@@ -2,6 +2,8 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { TokenResponse } from './interfaces/token'
 import { Box, Building, NotificationsResponse, Room } from '../interfaces'
 import { PORTAL_URL } from '../settings'
+import { requestLogger } from '../bot'
+import { ErrorType } from 'typescript-logging'
 
 const BASE_URL = PORTAL_URL
 
@@ -31,28 +33,52 @@ export class ClimateGuardApi {
   }
 
   static async getBuildings (token: string) {
-    const response = await axios.get<Building[]>(`${BASE_URL}/api/telegramBot/getBuildings`, buildHeaders(token))
-    return response.data
+    try {
+      const response = await axios.get<Building[]>(`${BASE_URL}/api/telegramBot/getBuildings`, buildHeaders(token))
+      return response.data
+    } catch (e) {
+      requestLogger.info(e)
+      return []
+    }
   }
 
   static async getRooms (building_id: number, token: string) {
-    const response = await axios.get<Room[]>(`${BASE_URL}/api/telegramBot/getRooms?building_id=${building_id}`, buildHeaders(token))
-    return response.data
+    try {
+      const response = await axios.get<Room[]>(`${BASE_URL}/api/telegramBot/getRooms?building_id=${building_id}`, buildHeaders(token))
+      return response.data
+    } catch (e) {
+      requestLogger.info(e)
+      return []
+    }
   }
 
   static async getBoxes (room_id: number, token: string) {
-    const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/getBoxes?room_id=${room_id}`, buildHeaders(token))
-    return response.data
+    try {
+      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/getBoxes?room_id=${room_id}`, buildHeaders(token))
+      return response.data
+    } catch (e) {
+      requestLogger.info(e)
+      return []
+    }
   }
 
   static async getBoxLastData (box_id: number, token: string) {
-    const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData?box_id=${box_id}`, buildHeaders(token))
-    return response.data
+    try {
+      const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData?box_id=${box_id}`, buildHeaders(token))
+      return response.data
+    } catch (e) {
+      requestLogger.info(e)
+      return {}
+    }
   }
 
   static async searchBoxes (query: string, token: string) {
-    const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes?name_or_uuid=${query}`, buildHeaders(token))
-    return response.data
+    try {
+      const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes?name_or_uuid=${query}`, buildHeaders(token))
+      return response.data
+    } catch (e) {
+      requestLogger.info(e)
+    }
   }
 
   static async getNotifications (token: string, chatId: string) {
@@ -62,7 +88,7 @@ export class ClimateGuardApi {
       )
       return response.data
     } catch (e) {
-      console.log(e)
+      requestLogger.info(e)
     }
   }
 }

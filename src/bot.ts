@@ -16,6 +16,7 @@ export const telegram = bot.telegram
 CategoryServiceFactory.setDefaultConfiguration(new CategoryConfiguration(LogLevel.Info))
 export const botLogger = new Category('bot')
 export const notificationLogger = new Category('notifications', botLogger)
+export const requestLogger = new Category('request', botLogger)
 
 const start = Telegraf.optional<BotContext>(ctx => !ctx.session.token, async (ctx) => {
   await moveToScene(AUTH)(ctx, '/')
