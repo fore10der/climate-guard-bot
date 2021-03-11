@@ -7,7 +7,7 @@ import chalk from 'chalk'
 import { Category, CategoryServiceFactory, CategoryConfiguration, LogLevel } from 'typescript-logging'
 import updateLogger from 'telegraf-update-logger'
 import { BotContext } from './interfaces/bot'
-import { securedMenuMiddleware } from './menus'
+import { menuMiddleware, securedMenuMiddleware } from './menus'
 import { queryHandler, securedSearchMiddleware } from './menus/searchView'
 import { BOT_TOKEN, REBOOT_SECRET } from './settings'
 import { CLOSE_NOTIFICATION } from './constants'
@@ -60,6 +60,10 @@ bot.use(securedSearchMiddleware)
 bot.use(securedMenuMiddleware)
 bot.action(CLOSE_NOTIFICATION, ctx => ctx.deleteMessage(ctx.callbackQuery.message.message_id))
 bot.start(start)
+bot.command('menu', async (ctx) => {
+  const menu = await menuMiddleware.replyToContext(ctx, menuMiddleware.rootTrigger)
+  ctx.session.menuMessageId = menu?.message_id
+})
 bot.command('stop', stop)
 bot.on('text', queryHandler)
 
