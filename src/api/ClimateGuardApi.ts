@@ -3,7 +3,6 @@ import { TokenResponse } from './interfaces/token'
 import { Box, Building, NotificationsResponse, Room } from '../interfaces'
 import { PORTAL_URL } from '../settings'
 import { requestLogger } from '../bot'
-import { ErrorType } from 'typescript-logging'
 
 const BASE_URL = PORTAL_URL
 
@@ -37,7 +36,7 @@ export class ClimateGuardApi {
       const response = await axios.get<Building[]>(`${BASE_URL}/api/telegramBot/getBuildings`, buildHeaders(token))
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
       return []
     }
   }
@@ -47,7 +46,7 @@ export class ClimateGuardApi {
       const response = await axios.get<Room[]>(`${BASE_URL}/api/telegramBot/getRooms?building_id=${building_id}`, buildHeaders(token))
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
       return []
     }
   }
@@ -57,7 +56,7 @@ export class ClimateGuardApi {
       const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/getBoxes?room_id=${room_id}`, buildHeaders(token))
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
       return []
     }
   }
@@ -67,7 +66,7 @@ export class ClimateGuardApi {
       const response = await axios.get<Box>(`${BASE_URL}/api/telegramBot/getLastBoxData?box_id=${box_id}`, buildHeaders(token))
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
       return {}
     }
   }
@@ -77,7 +76,7 @@ export class ClimateGuardApi {
       const response = await axios.get<Box[]>(`${BASE_URL}/api/telegramBot/searchBoxes?name_or_uuid=${query}`, buildHeaders(token))
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
       return []
     }
   }
@@ -89,7 +88,7 @@ export class ClimateGuardApi {
       )
       return response.data
     } catch (e) {
-      requestLogger.info(e)
+      requestLogger.info(e.message)
     }
   }
 }

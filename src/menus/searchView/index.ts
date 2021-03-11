@@ -11,7 +11,6 @@ export const SEARCH = 'search'
 
 export const searchView = new MenuTemplate<BotContext>(async (ctx, path) => {
   ctx.session.entities.box.list = await ClimateGuardApi.searchBoxes(ctx.session.searchQuery, ctx.session.token)
-  console.log(ctx.session.entities.box.list)
   if (ctx.session.entities.box.list.length === 0) {
     return 'По данному запросу коробки не найдены'
   }
