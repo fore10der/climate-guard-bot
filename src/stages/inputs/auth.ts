@@ -43,7 +43,8 @@ export const auth: BaseScene<BotContext> = new WizardScene(
       try {
         result = await ClimateGuardApi.auth(state['login'], state['password'])
       } catch (e) {
-        await ctx.reply(e.message)
+        const message = e?.response?.data?.error
+        await ctx.reply(message)
         await ctx.reply('Введите логин')
         return ctx.wizard.back()
       }

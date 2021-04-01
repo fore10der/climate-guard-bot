@@ -21,6 +21,7 @@ export class ClimateGuardApi {
       password
     }
     const response = await axios.post<TokenResponse>(`${BASE_URL}/api/loginViaApi`, data)
+    console.log(response)
     const result = response.data
     if (result.error) {
       throw Error(result.error)
